@@ -1,0 +1,29 @@
+{
+  "name": "xhtml5-esm-support",
+  "version": "0.1.0",
+  "description": "A polyfill for Safari, a shim for Chrome to make module scripts work in XHTML mode",
+  "keywords": [
+    "xhtml",
+    "xhtml5",
+    "esm"
+  ],
+  "main": "index.js",
+  "browser": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fuwei Chin",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fuweichin/xhtml5-esm-support"
+  },
+  "peerDependencies": {
+    "systemjs": "^6.12.1",
+    "systemjs-babel": "^0.3.1"
+  }
+}

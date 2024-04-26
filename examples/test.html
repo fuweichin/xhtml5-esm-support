@@ -1,38 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sample HTML</title>
-<style>
-code{
-  font-size: 16px;
-  font-family: Consolas, Mocaco, monospace;
-  color: #000000;
-  background-color: #eeeeee;
-  padding: 2px 6px;
-}
-</style>
+<title>Sample HTML5 Document</title>
 </head>
 <body>
 
-<details open="">
-  <summary>Reserved Characters</summary>
-  <code>&amp;</code> <code>&quot;</code> <code>&apos;</code> <code>&lt;</code> <code>&gt;</code>
-</details>
+<p id="message">This is a HTML5 document with XML syntax</p>
 
-<details open="">
-  <summary>Symbol Entiteis</summary>
-  <code>&nbsp;</code> <code>&copy;</code> <code>&trade;</code> <code>&reg;</code>
-</details>
+<script>document.querySelector('#message').textContent += ', served with MIME ' + document.contentType;</script>
 
-<script type="module" src="./test.js"></script>
 <script type="module">
-import foo from './foo.js';
-function main() {
-  document.body.insertAdjacentHTML('beforeend', `\x3Cp\x3Einternal module: ${foo.name}\x3C/p\x3E`);
-}
-document.addEventListener('DOMContentLoaded', main);
+document.body.insertAdjacentHTML('beforeend', `<p>internal module loaded</p>`);
 </script>
+
+<!-- to load module -->
+<script type="module" src="./test.js"></script>
+
 </body>
 </html>

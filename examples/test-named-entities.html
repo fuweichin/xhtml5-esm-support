@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sample HTML</title>
+<style>
+code{
+  font-size: 16px;
+  font-family: Consolas, Mocaco, monospace;
+  color: #000000;
+  background-color: #eeeeee;
+  padding: 2px 6px;
+}
+</style>
+</head>
+<body>
+
+<p id="message">This is a HTML5 document with XML syntax</p>
+
+<details open="">
+  <summary>Reserved Characters</summary>
+  <code>&amp;</code> <code>&quot;</code> <code>&apos;</code> <code>&lt;</code> <code>&gt;</code>
+</details>
+
+<details open="">
+  <summary>Named Entities</summary>
+  <code>&nbsp;</code> <code>&copy;</code> <code>&trade;</code> <code>&reg;</code>
+</details>
+
+<script>
+document.querySelector('#message').textContent += ', served with MIME ' + document.contentType;
+</script>
+
+</body>
+</html>

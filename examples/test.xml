@@ -17,12 +17,23 @@ internal module is supported in Firefox
 internal module is NOT supported in Safari
 internal module is supported in Chrome ONLY if the script is declared with 'async' attribute
  -->
-<script type="module" async="">/*<![CDATA[*/
+<script type="module" async=""><![CDATA[
 document.body.insertAdjacentHTML('beforeend', `<p>internal module loaded</p>`);
-/*]]>*/</script>
+]]></script>
 
 <!-- to load module -->
 <script>import('./test.js');</script>
+
+<!-- to load nomodule when document opened with file: protocol -->
+<!-- <script>
+if (location.protocol === 'file:') {
+  // to load nomodule
+  document.body.append(Object.assign(document.createElementNS('http://www.w3.org/1999/xhtml', 'script'), {src:'./test.nomodule.js'}));
+} else {
+  // to load module
+  import('./test.js');
+}
+</script> -->
 
 </body>
 </html>

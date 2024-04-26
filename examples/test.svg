@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 400">
+
+<text id="message" x="15" y="15">This is a SVG document</text>
+
+<script type="text/javascript">document.querySelector('#message').textContent += ' served with MIME ' + document.contentType;</script>
+
+<!-- 
+for XML/XHTML documents 
+internal module is supported in Firefox
+internal module is NOT supported in Safari
+internal module is supported in Chrome ONLY if the script is declared with 'async' attribute
+ -->
+<script xmlns="http://www.w3.org/1999/xhtml" type="module" async=""><![CDATA[
+{
+  let root = document.documentElement;
+  let xmlns = root.namespaceURI;
+  let text = document.createElementNS(xmlns, 'text');
+  text.setAttribute('x', 15);
+  text.setAttribute('y', 35);
+  text.textContent = 'internal module loaded';
+  root.insertAdjacentElement('beforeend', text);
+}
+]]></script>
+
+<script>
+if (location.protocol === 'file:') {
+  // to load nomodule
+  document.body.append(Object.assign(document.createElementNS('http://www.w3.org/1999/xhtml', 'script'), {src:'./test.nomodule.js'}));
+} else {
+  // to load module
+  import('./test.js');
+}
+</script>
+</svg>

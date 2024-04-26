@@ -21,8 +21,16 @@ internal module is supported in Chrome ONLY if the script is declared with 'asyn
 document.body.insertAdjacentHTML('beforeend', `<p>internal module loaded</p>`);
 /*]]>*/</script>
 
-<!-- to load module -->
-<script>import('./test.js');</script>
+<!-- to load nomodule when document opened with file: protocol -->
+<script>
+if (location.protocol === 'file:') {
+  // to load nomodule
+  document.body.append(Object.assign(document.createElement('script'), {src:'./test.nomodule.js'}));
+} else {
+  // to load module
+  import('./test.js');
+}
+</script>
 
 </body>
 </html>

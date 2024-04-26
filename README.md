@@ -1,74 +1,23 @@
 # xhtml5-esm-support
 
-A polyfill for Safari, a shim for Chrome to make module scripts work in XHTML mode.
+This repository is now repurposed to be example guide over library code. previously it is
 
-**Contents:**
-
-<!--ts-->
-
-   * [Background](#background)
-   * [Install](#install)
-   * [Usage](#usage)
-      * [Common Issues:](#common-issues)
-   * [Maintainers](#maintainers)
-   * [License](#license)
-<!--te-->
-
-
-
-## Background
-
-You may use ES Module along with [XHTML5](https://en.wikipedia.org/wiki/HTML5#XHTML_5_(XML-serialized_HTML_5)), but in Chromium based browsers: <q>Module scripts without the `async` attribute do not load when the page is served as XHTML</q>, and in Safari: <q>Module scripts do not load when the page is served as XHTML</q>. See [notes at caniuse.com](https://caniuse.com/mdn-html_elements_script_type_module)
-
-
-
-## Install
-
-```sh
-npm install xhtml5-esm-support
-
-# install peer dependencies to support Safari
-npm install systemjs systemjs-babel
-```
-
-
-
-## Usage
-
-In your XHTML5 document, put `<scipt>` below after your module `<script>`s
-
-```html
-<script src="./node_modules/xhtml5-esm-support/index.js"
-    data-peer-dependencies="./node_modules/systemjs/dist/system.min.js systemjs, ./node_modules/systemjs-babel/dist/systemjs-babel.js systemjs-babel"></script>
-<!-- specify data-peer-dependencies to support Safari -->
-```
-
-Notes:
-
-+ This package is not necessary for Chrome if all your module scripts were declared async
-+ Package "systemjs" and "systemjs-babel" are reuqired for Safari
-+ This package is not necessary for Firefox, but it's OK if loaded
-+ Don't use this package in HTML mode, but if loaded, a console warning will appear
-+ This package works for XHTML5, not XHTML1.0, so don't declare a DTD in DOCTYPE
-
-### Common Issues:
-
-+ module scripts run out of order
-  + It doesn't matter in most cases
-
-+ module scripts run deferred
-  + You may replace code like `document.addEventListener('DOMCOntentLoaded', main);` with `document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', main) : main();` to make it work.
-
-+ internal module script cannot static import or dynamic import to import other modules (Safari-only)
-  + you may extract internal modules as external.
-
-
+> A polyfill for Safari, a shim for Chrome to make module scripts work in XHTML mode.
 
 ## Examples
 
-See [examples/test.xhtml](./examples/test.xhtml)
+How to import ES modules in XHTML, SVG
 
+| Info \\ Type             | HTML5                                 | XHTML5                                  | XHTML5  with XML mime                | SVG                                 |
+| ------------------------ | ------------------------------------- | --------------------------------------- | ------------------------------------ | ----------------------------------- |
+| sample document          | see [test.html](./examples/test.html) | see [test.xhtml](./examples/test.xhtml) | see [test.xml](./examples/test.xml)  | see [test.svg](./examples/test.svg) |
+| filename extension       | .html                                 | .xhtml or .xht                          | .xml                                 | .svg                                |
+| MIME type                | text/html                             | application/xhtml+xml                   | text/xml, application/xml            | image/svg+xml                       |
+| internal module support  | yes                                   | partial[^1]                             | partial[^1]                          | partial [^2]                        |
+| external module support  | with `<script type="module">`         | with `<script>` and dynamic import      | *with `<script>` and dynamic import* | with `<script>` and dynamic import  |
+| method to create element | createElement, createElementNS        | createElement, createElementNS          | createElementNS                      | createElementNS                     |
 
+When a document is opened directly with browser (using file: protocol), then external ES module is not supported by browsers. thus you need build tool like Rollup to pack ES modules as IIFE js, see [test-file-protocol.xhtml](./examples/test-file-protocol.xhtml). 
 
 ## Maintainers
 
@@ -79,3 +28,11 @@ See [examples/test.xhtml](./examples/test.xhtml)
 ## License
 
 [MIT](./LICENSE)
+
+
+## Appendix
+### Footnotes
+
+[^1]: Chrome supports module script in XHTML only if the async attribute is present, Safari doesn't support module script.
+[^2]: Chrome and Safari don't support internal module script in XML/SVG/MathML
+
